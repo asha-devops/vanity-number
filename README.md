@@ -1,4 +1,4 @@
-# vanity number generator serverless function
+# vanity number generator serverless function + AWS Connect
 
 ## Vanity Number
 A vanity number is a custom made set of digits that either spell out a word or memorable in same way, where are spelled out using the numbers on the telephone keypad
