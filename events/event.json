@@ -1,0 +1,25 @@
+{
+  "Details": {
+    "ContactData": {
+       "Attributes": {
+         "Reason": "Customer Support"
+       },
+       "Channel": "VOICE",
+       "ContactId": "",
+       "CustomerEndpoint": {
+          "Address": "+447440257086",
+          "Type": "TELEPHONE_NUMBER"
+       },
+      "InitialContactId": "",
+      "InitiationMethod": "INBOUND",
+      "InstanceARN": "",
+      "PreviousContactId": "",
+      "Queue": "",
+      "SystemEndpoint": {
+        "Address": "1234567890",
+        "Type": "TELEPHONE_NUMBER"
+      }
+    }
+  },
+  "Name": "ContactFlowEvent"
+}

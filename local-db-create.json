@@ -1,0 +1,15 @@
+{
+    "TableName": "customer-details",
+    "KeySchema": [
+      { "AttributeName": "ContactNumber", "KeyType": "HASH" },
+      { "AttributeName": "CallDateTime", "KeyType": "RANGE" }
+    ],
+    "AttributeDefinitions": [
+      { "AttributeName": "ContactNumber", "AttributeType": "S" },
+      { "AttributeName": "CallDateTime", "AttributeType": "N" }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 2,
+      "WriteCapacityUnits": 2
+    }
+}

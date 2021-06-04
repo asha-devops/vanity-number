@@ -1,0 +1,63 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  voice-foundry
+
+  Sample SAM Template for voice-foundry
+
+Globals:
+  Function:
+    Timeout: 60
+
+Resources:
+  LambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: vanity_number/
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      MemorySize: 512
+      Policies:
+      - Statement:
+        - Effect: Allow
+          Action:
+            - "dynamodb:*"
+          Resource:
+            - !GetAtt DynamoDBTable.Arn
+
+  ConnectPerm:
+    Type: AWS::Lambda::Permission
+    DependsOn: LambdaFunction
+    Properties:
+      Action: lambda:invokeFunction
+      FunctionName: !GetAtt LambdaFunction.Arn
+      Principal: connect.amazonaws.com
+      SourceAccount: !Ref AWS::AccountId
+
+  DynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    # DeletionPolicy: Retain Enable for production environment
+    Properties:
+      AttributeDefinitions:
+      - AttributeName: ContactNumber
+        AttributeType: S
+      - AttributeName: CallDateTime
+        AttributeType: N
+      KeySchema:
+      - AttributeName: ContactNumber
+        KeyType: HASH
+      - AttributeName: CallDateTime
+        KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+      SSESpecification:
+        SSEEnabled: true
+      TableName: customer-details
+
+
+Outputs:
+  LambdaFunction:
+    Description: "Lambda Function ARN"
+    Value: !GetAtt LambdaFunction.Arn
+  LambdaFunctionIamRole:
+    Description: "Implicit IAM Role created for function"
+    Value: !GetAtt LambdaFunctionRole.Arn
